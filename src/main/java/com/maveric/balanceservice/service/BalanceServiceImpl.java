@@ -4,10 +4,10 @@ import com.maveric.balanceservice.dto.BalanceDto;
 import com.maveric.balanceservice.exception.BalanceNotFoundException;
 import com.maveric.balanceservice.model.Balance;
 import com.maveric.balanceservice.repository.BalanceRepository;
+import com.maveric.userservice.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +48,17 @@ public class BalanceServiceImpl implements BalanceService{
     }
 
     @Override
-    public BalanceDto updateBalance(String balanceId) {
-        return null;
-    }
+    public Balance updateBalance(String balanceId) {
+            Balance balance = balanceRepository.findById(Integer.valueOf(balanceId))
+                    .orElseThrow(() -> new ResourceNotFoundException(Integer.valueOf(balanceId)));
+
+            balance.setId(balance.getId());
+            balance.setAmount(balance.getAmount());
+            balance.setCurrency(balance.getCurrency());
+            balance.setCreatedAt(balance.getCreatedAt());
+           balance.setUpdatedAt(balance.getUpdatedAt());
+            return balanceRepository.save(balance);
+        }
 
     @Override
     public String deleteBalance(String balanceId) {

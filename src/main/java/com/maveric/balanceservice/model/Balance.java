@@ -22,7 +22,7 @@ public class Balance {
         @Id
         private String id;
         private String accountId;
-        private Number amount;
+        private Integer amount;
         private String currency;
         //@CreationTimestamp
         private String createdAt;

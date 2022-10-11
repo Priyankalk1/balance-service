@@ -13,7 +13,7 @@ public class BalanceDto {
 
         private String id;
         private String accountId;
-        private Number amount;
+        private Integer amount;
         private String currency;
         private String createdAt;
         private String updatedAt;
